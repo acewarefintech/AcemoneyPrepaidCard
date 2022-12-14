@@ -101,7 +101,7 @@ public struct Acemoney
                     catch
                     {
                         let responseCode = response.response?.statusCode ?? 404
-                        let str = String(decoding: data!, as: UTF8.self)
+//                        let str = String(decoding: data!, as: UTF8.self)
 //                        print("Error Response Data:\n\(str)")
                         let errorDictResponse = ["ErrorResponseStatusCode":"\(String(describing: responseCode))"]
                         completion(errorDictResponse)
@@ -407,7 +407,7 @@ public struct Acemoney
                     catch
                     {
                         let responseCode = response.response?.statusCode ?? 404
-                        let str = String(decoding: data!, as: UTF8.self)
+//                        let str = String(decoding: data!, as: UTF8.self)
 //                        print("Error Response Data:\n\(str)")
                         let errorDictResponse = ["ErrorResponseStatusCode":"\(String(describing: responseCode))"]
                         completion(errorDictResponse)
