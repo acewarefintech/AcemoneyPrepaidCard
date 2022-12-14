@@ -6,6 +6,6 @@ final class AcemoneyPrepaidCardTests: XCTestCase {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct
         // results.
-        XCTAssertEqual(AcemoneyPrepaidCard().text, "Hello, World!")
+//        XCTAssertEqual(AcemoneyPrepaidCard.text, "Hello, World!")
     }
 }
