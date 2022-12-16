@@ -85,8 +85,8 @@ public struct Acemoney
                                                                           "type":json["data"][i]["type"].stringValue,
                                                                           "params":json["data"][i]["params"]]
                                 i+=1
-                                completion(responseJSON)
                             }
+                            completion(["status":"Success"])
 //                            print("\n\n\nWeb Services And Params:\(webServicesAndParams)\n\n\n")
                         }
                         else
