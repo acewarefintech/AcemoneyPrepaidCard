@@ -71,6 +71,7 @@ public struct Acemoney
                     do
                     {
                         let responseJSON = try JSONSerialization.jsonObject(with: data!, options: []) as! [String : Any]
+                        print("Response:\n\(responseJSON)\n")
                         let json = JSON(data!)
                         if ((json["status"] == true) && (json["meta"]["code"].stringValue == "200") && (json["meta"]["message"].stringValue == "success"))
                         {
