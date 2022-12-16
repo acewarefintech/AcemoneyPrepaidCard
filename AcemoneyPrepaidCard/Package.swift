@@ -24,10 +24,6 @@ let package = Package(
             name: "AcemoneyPrepaidCard",
             dependencies: ["Alamofire","SwiftyJSON"],
             path: "Sources"),
-        .testTarget(
-            name: "AcemoneyPrepaidCardTests",
-            dependencies: ["AcemoneyPrepaidCard"],
-            path: "Tests"),
 //        .testTarget(
 //            name: "AcemoneyPrepaidCardTests",
 //            dependencies: ["AcemoneyPrepaidCard"]),
