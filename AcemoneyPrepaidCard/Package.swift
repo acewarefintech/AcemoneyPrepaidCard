@@ -20,16 +20,17 @@ let package = Package(
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
         // Targets can depend on other targets in this package, and on products in packages this package depends on.
-//        .target(
-//            name: "AcemoneyPrepaidCard",
-//            dependencies: ["Alamofire","SwiftyJSON"]),
-//            path: "Sources",
         .target(
             name: "AcemoneyPrepaidCard",
             dependencies: ["Alamofire","SwiftyJSON"],
             path: "Sources"),
         .testTarget(
             name: "AcemoneyPrepaidCardTests",
-            dependencies: ["AcemoneyPrepaidCard"]),
+            dependencies: ["AcemoneyPrepaidCard"],
+            path: "Tests"),
+//        .testTarget(
+//            name: "AcemoneyPrepaidCardTests",
+//            dependencies: ["AcemoneyPrepaidCard"]),
+//        path: "AcemoneyPrepaidCard/Sources/AcemoneyPrepaidCard"),
     ]
 )
