@@ -70,7 +70,7 @@ public struct Acemoney
                 case .success(let data):
                     do
                     {
-                        let responseJSON = try JSONSerialization.jsonObject(with: data!, options: []) as! [String : Any]
+                        let responseJSON = try JSONSerialization.jsonObject(with: data!, options: []) as! [String : String]
                         let json = JSON(data!)
                         if ((json["status"] == true) && (json["meta"]["code"].stringValue == "200") && (json["meta"]["message"].stringValue == "success"))
                         {
