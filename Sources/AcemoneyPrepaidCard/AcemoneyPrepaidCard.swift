@@ -84,9 +84,9 @@ public struct Acemoney
                                                                           "type":json["data"][i]["type"].stringValue,
                                                                           "params":json["data"][i]["params"]]
                                 i+=1
+                                completion(responseJSON)
                             }
 //                            print("\n\n\nWeb Services And Params:\(webServicesAndParams)\n\n\n")
-                            completion(["message":"success"])
                         }
                         else
                         {
@@ -96,13 +96,12 @@ public struct Acemoney
                                 completion(["errors":"\(json["errors"][0]["message"].stringValue)"])
                             }
                         }
-                        completion(responseJSON)
                     }
                     catch
                     {
                         let responseCode = response.response?.statusCode ?? 404
-//                        let str = String(decoding: data!, as: UTF8.self)
-//                        print("Error Response Data:\n\(str)")
+                        let str = String(decoding: data!, as: UTF8.self)
+                        print("Error Response Data:\n\(str)")
                         let errorDictResponse = ["ErrorResponseStatusCode":"\(String(describing: responseCode))"]
                         completion(errorDictResponse)
                     }
@@ -407,8 +406,8 @@ public struct Acemoney
                     catch
                     {
                         let responseCode = response.response?.statusCode ?? 404
-//                        let str = String(decoding: data!, as: UTF8.self)
-//                        print("Error Response Data:\n\(str)")
+                        let str = String(decoding: data!, as: UTF8.self)
+                        print("Error Response Data:\n\(str)")
                         let errorDictResponse = ["ErrorResponseStatusCode":"\(String(describing: responseCode))"]
                         completion(errorDictResponse)
                     }
