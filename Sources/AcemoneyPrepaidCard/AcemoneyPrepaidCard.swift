@@ -38,6 +38,7 @@ public enum Method:String
     case virtualCard = "creditCardVirtual"
     case cardAssignCheck = "creditCardAssignCheck"
     case getCardProfile = "creditCardGetProfile"
+    case getQR = "getQR"
 }
 
 public struct Acemoney
@@ -391,6 +392,15 @@ public struct Acemoney
                     default: break
                 }
                 break
+            case .getQR:url = webServiceDetails["getQr"]["url"].stringValue
+                switch webServiceDetails["getQr"]["type"].stringValue
+                {
+                    case "POST": methodType = HTTPMethod.post
+                        break
+                    case "GET": methodType = HTTPMethod.get
+                        break
+                    default: break
+                }
         }
         AF.request(url, method: methodType, parameters: params, encoding: JSONEncoding.default, headers: nil).response(completionHandler:
         {
