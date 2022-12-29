@@ -86,8 +86,7 @@ public struct Acemoney
                                                                           "params":json["data"][i]["params"]]
                                 i+=1
                             }
-                            completion(["status":"Success"])
-//                            print("\n\n\nWeb Services And Params:\(webServicesAndParams)\n\n\n")
+                            completion(["status":"success", "message":"SDK successfully initialised."])
                         }
                         else
                         {
@@ -100,9 +99,8 @@ public struct Acemoney
                     }
                     catch
                     {
-                        let responseCode = response.response?.statusCode ?? 404
+                        let responseCode = response.response!.statusCode
                         let str = String(decoding: data!, as: UTF8.self)
-                        print("Error Response Data:\n\(str)")
                         let errorDictResponse = ["ErrorResponseStatusCode":"\(String(describing: responseCode))"]
                         completion(errorDictResponse)
                     }
@@ -115,7 +113,7 @@ public struct Acemoney
         })
     }
     
-    public static func request(params:[String:Any], method:Method, /*env:String,*/ completion:@escaping([String:Any]) -> Void)
+    public static func request(params:[String:Any], method:Method, completion:@escaping([String:Any]) -> Void)
     {
         var url = String()
         var methodType = HTTPMethod.post
@@ -402,7 +400,8 @@ public struct Acemoney
                     default: break
                 }
         }
-        AF.request(url, method: methodType, parameters: params, encoding: JSONEncoding.default, headers: nil).response(completionHandler:
+        let header : HTTPHeaders = ["Authorization": "Bearer \(token)"]
+        AF.request(url, method: methodType, parameters: params, encoding: JSONEncoding.default, headers: header).response(completionHandler:
         {
             response -> Void in
             switch response.result
@@ -411,17 +410,25 @@ public struct Acemoney
                     do
                     {
                         let responseJSON = try JSONSerialization.jsonObject(with: data!, options: []) as! [String : Any]
-                        completion(responseJSON)
+                        let json = JSON(data!)
+                        if (json["status"] == false) && (json["message"].stringValue == "token expired")
+                        {
+                            completion(["status":"failed", "message":"SDK session timeout. Please initialise SDK again to continue."])
+                        }
+                        else
+                        {
+                            completion(responseJSON)
+                        }
                     }
                     catch
                     {
-                        let responseCode = response.response?.statusCode ?? 404
+                        let responseCode = response.response!.statusCode
                         let str = String(decoding: data!, as: UTF8.self)
-                        print("Error Response Data:\n\(str)")
-                        let errorDictResponse = ["ErrorResponseStatusCode":"\(String(describing: responseCode))"]
+                        let errorDictResponse = ["status":"failed", "ErrorResponseStatusCode":"\(responseCode))"]
                         completion(errorDictResponse)
                     }
                 case .failure(let error):
+                    let responseCode = response.response!.statusCode
                     let errorDictResponse = ["ErrorResponse":"\(error)"]
                     completion(errorDictResponse)
                     break
